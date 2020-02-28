@@ -7,12 +7,12 @@
 
 #include <vector>
 #include "Renderable.hpp"
-#include "Light.hpp"
 #include "Skybox.hpp"
 #include "Camera.hpp"
+#include "Light.hpp"
 
 /*
- * Scene holds all Renderables, Lights and some other resources in the scene
+ * Scene holds all Renderables, Lights and some other asset in the scene
  *
  * Usage:
  * 1. create a simple scene with one light source, one renderable and render
@@ -32,6 +32,7 @@
  *      Renderer.renderScene(scene);
  * }
  *
+ * TODO: Save/Load Scene in a JSON file
  */
 
 class Renderer;

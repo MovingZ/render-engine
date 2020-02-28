@@ -12,8 +12,8 @@
 #include "Scene.hpp"
 
 /*
- * Renderer encapsulates OpenGL loader things, OpenGL API and window resources
- * It's a middle layer between OpenGL API and the render engine, i.e., a
+ * Renderer encapsulates OpenGL loader things, OpenGL API and window asset
+ * It's a middle layer between OpenGL API and the render core, i.e., a
  * platform-independent layer
  *
  * Usage:
@@ -47,7 +47,7 @@ public:
 
     void draw(const Scene &scene) {
         for (auto renderable : scene.renderables) {
-            renderer.draw(renderable);
+//            renderer.draw(renderable);
         }
     }
 

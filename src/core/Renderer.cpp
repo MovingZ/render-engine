@@ -13,7 +13,7 @@ Renderer::Renderer() {
 #endif
 
     int width = 1280, height = 720;
-    window = glfwCreateWindow(width, height, "Render engine", nullptr, nullptr);
+    window = glfwCreateWindow(width, height, "Render core", nullptr, nullptr);
     if (!window) {
         throw std::runtime_error("GLFW window failed to create");
     }

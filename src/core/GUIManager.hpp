@@ -1,20 +1,21 @@
 //
-// Created by Krisu on 2020-02-05.
+// Created by Krisu on 2020-02-06.
 //
 
 #ifndef RENDER_ENGINE_GUIMANAGER_HPP
 #define RENDER_ENGINE_GUIMANAGER_HPP
 
+
 #include <imgui.h>
 #include <imgui_impl_glfw.h>
 #include <imgui_impl_opengl3.h>
-
-#include <engine/Renderer.hpp>
 
 /*
  * Handling GUI things.
  * GUIManager is using imgui, while window is using glfw in implementation
  */
+
+#include "Renderer.hpp"
 
 class GUIManager {
 public:
@@ -36,8 +37,6 @@ public:
     }
 
     void drawUI() {
-        glfwPollEvents();
-
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
@@ -52,6 +51,7 @@ public:
 private:
     const Renderer &renderer;
 };
+
 
 
 #endif //RENDER_ENGINE_GUIMANAGER_HPP

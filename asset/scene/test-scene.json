@@ -1,0 +1,28 @@
+{
+  "sphere": {
+    "Mesh": "Sphere",
+
+    "Transform": {
+      "translate": [0, 0, -3],
+      "scale": 2
+    },
+
+    "Material": "asset/material/gold.json",
+
+    "Shader": ["shader/default.vert", "shader/default.frag"]
+  },
+
+
+  "dragon": {
+    "Mesh": "asset/mesh/dragon.obj",
+
+    "Transform": {
+      "translate": [0, -3, -3],
+      "scale": 10
+    },
+
+    "Material": "asset/material/gold.json",
+
+    "Shader": ["shader/default.vert", "shader/default.frag"]
+  }
+}

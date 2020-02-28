@@ -53,7 +53,7 @@ Shader::Shader(const char *vertexPath,
     const char * vShaderCode = vertexCode.c_str();
     const char * fShaderCode = fragmentCode.c_str();
 
-    // 2.compile shaders
+    // 2.compile shader
     unsigned int vertex, fragment;
     int success;
 
@@ -89,7 +89,7 @@ Shader::Shader(const char *vertexPath,
         glAttachShader(id, geometry);
     glLinkProgram(id);
     checkCompileErrors(id, "PROGRAM", vertexPath);
-    // delete shaders
+    // delete shader
     glDeleteShader(vertex);
     glDeleteShader(fragment);
     if (geometryPath != nullptr)
@@ -179,4 +179,6 @@ Shader::checkCompileErrors(GLuint shader, const std::string& type, std::string p
         }
     }
 }
+
+Shader::Shader() : Shader("shader/default.vert", "shader/default.frag", nullptr) {}
 

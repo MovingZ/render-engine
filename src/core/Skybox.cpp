@@ -138,7 +138,7 @@ void Skybox::prepare() {
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
         //--------------------------------------------------------------------
-        // generate prefilter map for skyboxes specular lighting
+        // generate prefilter map for skybox specular lighting
         int res_prfmap = 128;
         glGenTextures(1, &prefilterMap);
         glBindTexture(GL_TEXTURE_CUBE_MAP, prefilterMap);

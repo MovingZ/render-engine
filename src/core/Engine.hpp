@@ -6,12 +6,16 @@
 #define RENDER_ENGINE_ENGINE_HPP
 
 /*
- * Engine hold all the resources.
- * Scene, Camera,
+ * Engine hold all the asset.
+ * Scene, Camera etc...
  */
 
-class Engine {
+class Scene;
+class Camera;
+class GameObject;
 
+class Engine {
+    Scene *CreateScene();
 };
 
 

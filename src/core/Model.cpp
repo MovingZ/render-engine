@@ -28,7 +28,7 @@ void Model::loadModel(const std::string &path) {
 }
 
 void Model::processNode(aiNode *node, const aiScene *scene) {
-    // process all the node's meshes
+    // process all the node's mesh
     for (unsigned int i = 0; i < node->mNumMeshes; i++) {
         aiMesh *mesh = scene->mMeshes[node->mMeshes[i]];
         meshes.push_back(processMesh(mesh, scene));
@@ -44,7 +44,7 @@ Model::Model(const std::string &directory) {
 }
 
 void Model::render() {
-    // TODO: bind textures
+    // TODO: bind texture
     for (auto &mesh : meshes) {
         mesh.render();
     }
@@ -63,7 +63,7 @@ std::vector<Texture> Model::loadMaterialTextures(
 //        bool skip = false;
 //        for (auto &t : textures_loaded) {
 //            if (std::strcmp(t.path().c_str(), str.C_Str()) == 0) {
-//                textures.push_back(t);
+//                texture.push_back(t);
 //                skip = true;
 //                break;
 //            }
@@ -71,7 +71,7 @@ std::vector<Texture> Model::loadMaterialTextures(
 //        if (!skip) {
 //            // not already loaded before
 //            Texture texture(str.C_Str(), typeName);
-//            textures.push_back(texture);
+//            texture.push_back(texture);
 //            textures_loaded.push_back(texture);
 //        }
 //    }
@@ -119,11 +119,11 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene) {
 //    std::vector<Texture> diffuseMaps = loadMaterialTextures(material,
 //                                                            aiTextureType_DIFFUSE,
 //                                                            "texture_diffuse");
-//    textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
+//    texture.insert(texture.end(), diffuseMaps.begin(), diffuseMaps.end());
 //    std::vector<Texture> specularMaps = loadMaterialTextures(material,
 //                                                             aiTextureType_SPECULAR,
 //                                                             "texture_specular");
-//    textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
+//    texture.insert(texture.end(), specularMaps.begin(), specularMaps.end());
     return Mesh(vertices, indices);
 }
 

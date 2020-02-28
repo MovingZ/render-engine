@@ -56,7 +56,7 @@ void Material::updateShader(Shader &shader) {
     if (height) {
         bind_texture("height_map", height);
     }
-    // Binding extra textures
+    // Binding extra texture
     for (const auto &t : extra_textures) {
         bind_texture(t.name, t.texture);
     }

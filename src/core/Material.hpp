@@ -13,7 +13,7 @@
 #include "Texture.hpp"
 #include "Shader.hpp"
 
-// Hold and manage all the textures, responsible for binding texture to shader
+// Hold and manage all the texture, responsible for binding texture to shader
 // All suppord
 class Material {
 public:

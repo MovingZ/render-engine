@@ -6,11 +6,16 @@ in vec2 TexCoords;
 in vec3 WorldPos;
 in vec3 Normal;
 
+const int MAX_POINT_LIGHT = 16;
+const int MAX_DIRECTIONAL_LIGHT = 4;
+const int MAX_SPOT_LIGHT = 16;
+const float PI = 3.14159265359;
+
 // for calculating specular
-uniform vec3 cam_pos;
+uniform vec3 cameraPosition;
 
 // TODO: support for height_map, emissive_map
-// material parameters - sampler
+// Sampler
 uniform sampler2D albedo_map;
 uniform sampler2D metallic_map;
 uniform sampler2D roughness_map;
@@ -19,13 +24,13 @@ uniform sampler2D normal_map;
 uniform sampler2D ao_map;
 uniform sampler2D specular_map;
 uniform sampler2D height_map;
-// material parameters - constant
+// Constant
 uniform vec3 albedo_val;
 uniform float metallic_val;
 uniform float roughness_val;
 uniform float emissive_val;
 uniform float ao_val = 1.0;
-// material using status
+// Status
 uniform bool use_albedo_map = false;
 uniform bool use_metallic_map = false;
 uniform bool use_roughness_map = false;
@@ -33,18 +38,34 @@ uniform bool use_emissive_map = false;
 uniform bool use_normal_map = false;
 
 // IBL
-// diffuse
 uniform samplerCube irradiance_map;
-// specular
 uniform samplerCube prefilter_map;
 uniform sampler2D   brdfLUT_map;
 
-// Point lights
-uniform vec3 lightPositions[4];
-uniform vec3 lightColors[4];
+// Lights
+struct PointLight {
+    vec3 position;
+    vec3 color;
+} pointLights[MAX_POINT_LIGHT];
 
+uniform int pointLightsCount = 0;
 
-const float PI = 3.14159265359;
+struct DirectionalLight {
+    vec3 direction;
+    vec3 color;
+} directionalLights[MAX_DIRECTIONAL_LIGHT];
+
+uniform int directionalLightsCount = 0;
+
+struct SpotLight {
+    vec3 position;
+    vec3 direction;
+    vec3 color;
+    float cone_angle;
+} spotLights[MAX_SPOT_LIGHT];
+
+uniform int spotLightsCount = 0;
+
 
 vec3 fresnelSchlick(float cosTheta, vec3 F0);
 vec3 fresnelSchlickRoughness(float cosTheta, vec3 F0, float roughness);
@@ -81,20 +102,20 @@ void main() {
     }
 
     vec3 N = normalize(normal);
-    vec3 V = normalize(cam_pos - WorldPos);
+    vec3 V = normalize(cameraPosition - WorldPos);
     vec3 R = reflect(-V, N);
 
     vec3 F0 = vec3(0.04);
     F0 = mix(F0, albedo, metallic); // for non-metal, F0 is always 0.04
 
     vec3 Lo = vec3(0.0);
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < pointLightsCount; i++) {
         // Per-light raiance
-        vec3 L = normalize(lightPositions[i] - WorldPos);
+        vec3 L = normalize(pointLights[i].position - WorldPos);
         vec3 H = normalize(V + L); // half-way
-        float dist = length(lightPositions[i] - WorldPos);
+        float dist = length(pointLights[i].position - WorldPos);
         float attenuation = 1.0 / (dist * dist);
-        vec3 radiance = lightColors[i] * attenuation;
+        vec3 radiance = pointLights.color * attenuation;
 
         // Cook-Torrance BRDF
         float NDF = DistributionGGX(N, H, roughness);

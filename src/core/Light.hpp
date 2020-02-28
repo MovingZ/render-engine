@@ -65,32 +65,15 @@ private:
     vec3 position;
     vec3 direciton;
     vec3 color;
-
     float cone_angle_in_radian;
 };
 
-Light PointLight(glm::vec3 position, glm::vec3 color) {
-    Light light(LightType::Point);
-    light.setPosition(position);
-    light.setColor(color);
-    return light;
-}
+Light PointLight(glm::vec3 position, glm::vec3 color);
 
-Light DirectionalLight(glm::vec3 direction, glm::vec3 color) {
-    Light light(LightType::Directional);
-    light.setDirection(direction);
-    light.setColor(color);
-    return light;
-}
+Light DirectionalLight(glm::vec3 direction, glm::vec3 color);
 
 Light SpotLight(glm::vec3 position, glm::vec3 direction, glm::vec3 color,
-                float cone_angle_in_radian) {
-    Light light(LightType::Spot);
-    light.setPosition(position);
-    light.setDirection(direction);
-    light.setColor(color);
-    light.setConeAngleInRadian(cone_angle_in_radian);
-}
+                float cone_angle_in_radian);
 
 
 #endif //RENDER_ENGINE_LIGHT_HPP

@@ -1,0 +1,9 @@
+{
+  "set-texture-directory": "asset/texture/rust-steel/",
+
+  "albedo": "albedo.png",
+  "ao": "ao.png",
+  "metallic": "metallic.png",
+  "normal": "normal.png",
+  "roughness": "roughness.png"
+}

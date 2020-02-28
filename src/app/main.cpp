@@ -5,13 +5,23 @@
     #include <unistd.h>
 #endif
 
-#include "engine/Scene.hpp"
-#include "engine/Renderer.hpp"
+#include <fstream>
+#include <sstream>
+#include <iostream>
+
+
+#include "core/Scene.hpp"
+#include "core/Renderer.hpp"
+#include "core/Engine.hpp"
 
 int main(int argc, char *argv[]) {
     chdir("..");
 
+
+
     /* Game code begins here */
+    Engine engine;
+
     Scene scene;
     scene.addLight(PointLight({2, 2, 2}, {1, 1, 1}));
     auto *mesh = new Mesh(SimpleMesh::Sphere());
@@ -29,6 +39,7 @@ int main(int argc, char *argv[]) {
         renderer.draw(scene);
     }
     /* Game code ends here */
+
 
     return 0;
 }

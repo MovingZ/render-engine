@@ -16,7 +16,7 @@ public:
     Shader(const GLchar *vertexPath,
            const GLchar *fragmentPath,
            const GLchar *geometryPath = nullptr);
-    Shader() : Shader("shaders/default.vert", "shaders/default.frag") {}
+    Shader();
 
     // "Activate" the shader
     void useShaderProgram();

@@ -60,6 +60,9 @@ public:
     template <typename T>
     T& GetUniformBuffer();
 
+    //Bullet 添加一个初始化方法
+    void EnablePhysics();
+
 private:
     /* Managing Uniform Block */
     template <typename T> void setUniformBlockEnabled(bool enabled);

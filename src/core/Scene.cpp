@@ -15,6 +15,8 @@
 #include "Mesh.hpp"
 #include "DirectionalShadow.hpp"
 #include "Transform.hpp"
+//Bullet 增加了include
+#include "MyBullet.hpp"
 
 
 void Scene::Build() {
@@ -52,12 +54,23 @@ void Scene::Update() {
 
     /* 2 - Scene update */
     renderer.ResetViewport();
+
+    //Bullet让步增加了一步
+    MBWorld::getWorld()->takeStep(10);
+
     for (auto& up_game_obj : up_game_objects) {
         // BEFORE
         for (auto &it : up_game_obj->components_map) {
             auto & component = it.second;
             component->BeforeRenderPass();
         }
+        //Bullet 增加了对所有obj的transform修改
+        auto& transform = up_game_obj->GetComponent<Transform>();
+        auto& physics = up_game_obj->GetComponent<Physics>();
+        btTransform trans; physics.Body->getMotionState()->getWorldTransform(trans);
+        btQuaternion q = trans.getRotation();
+        btVector3 pos = trans.getOrigin(), axis = q.getAxis(); btScalar angle = q.getAngle();
+        transform.SetPosition(pos.x, pos.y, pos.z); transform.SetRotation(axis.x, axis.y, axis.z, angle);
 
         // RENDERING
         try {

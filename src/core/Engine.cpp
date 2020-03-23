@@ -13,6 +13,8 @@
 #include "Scene.hpp"
 #include "UniformBlock.hpp"
 #include "Skybox.hpp"
+//Bullet 此处添加include
+#include "MyBullet.hpp"
 
 Scene& Engine::CreateScene() {
     scenes.emplace_back(std::make_unique<Scene>());
@@ -76,4 +78,12 @@ Shader &Engine::GetDefaultShader() {
 Shader &Engine::GetTestShader() {
     static Shader& test = CreateShader("shader/test.vert", "shader/test.frag");
     return test;
+}
+
+//Bullet 此处初始化世界
+void Engine::EnablePhysics() {
+    int maxProxies = 1024;///最大刚体数量
+    btVector3 worldAabbMin(-10000, -10000, -10000);///最小边界
+    btVector3 worldAabbMax(10000, 10000, 10000);///最大边界
+    MBWorld::createWorld(worldAabbMin, worldAabbMax, maxProxies);///创建世界（封装）
 }

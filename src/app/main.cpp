@@ -13,6 +13,8 @@
 #include "LightInformation.hpp"
 #include "GlobalTransform.hpp"
 #include "Light.hpp"
+//bullet 在components里添加Mybullet.cpp和hpp并include
+#include "Mybullet.hpp"
 
 void processInput(Camera &camera) {
     float speed = 20.0f * Engine::GetInstance().GetRenderer().GetDeltaTime();
@@ -52,6 +54,9 @@ int main(int argc, char *argv[]) {
 
     Scene& scene = engine.CreateScene();
     engine.MakeCurrentScene(scene);
+    //Bullet 修改了scene.cpp文件的update方法
+    //Bullet 修改了engine的hpp和cpp文件
+    engine.EnablePhysics();
 
     // --1--
     GameObject& sphere = scene.CreateGameObject(); {
@@ -63,6 +68,21 @@ int main(int argc, char *argv[]) {
         material.SetRoughness(0.8);
         auto& transform = sphere.CreateComponent<Transform>();
         transform.SetPosition(0, 0, -10);
+    }
+
+    // Bullet 添加了一个用于测试的球
+    GameObject& sphere2 = scene.CreateGameObject(); {
+        sphere2.CreateComponent<Mesh>(SimpleMesh::Sphere());
+        auto& material = sphere2.CreateComponent<Material>();
+        material.SetShader(engine.GetDefaultShader());
+        material.SetAlbedo(1, 1, 1);
+        material.SetMetallic(0.1);
+        material.SetRoughness(0.8);
+        auto& transform = sphere2.CreateComponent<Transform>();
+        transform.SetPosition(10, 10, -10);
+        //Bullet 构造一个Physics
+        auto& physics = sphere2.CreateComponent<Physics>(PHYSICS_SPHERE,2.0);
+        MBWorld::getWorld()->bodySetPos(physics.Body, 10, 10, -10);
     }
 
     // --2--
